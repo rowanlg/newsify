@@ -2,70 +2,36 @@ import logo from "./logo.svg";
 import React from "react";
 import "./App.css";
 import styled from "styled-components";
-import { colours } from "./utils/colours";
+import { colours, fontSizes } from "./utils/utils";
+import Masonry from "react-masonry-css";
+import Thumnails from "./components/Thumnails";
 
 const AppContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  /* justify-content: space-between; */
 `;
 
-const NewsThumbnailContainer = styled.div`
+const SideBar = styled.div`
+  /* width: 100%; */
+  height: inherit;
+  /* position: fixed; */
   width: 300px;
-  margin: 20px;
-  border-radius: 5px;
   background-color: ${colours.white};
-  display: flex;
-  flex-direction: column;
-  img {
-    width: 100%;
-    border-radius: 5px 5px 0 0;
-    /* :hover {
-      width: 110%;
-    } */
-  }
-
-  div {
-    width: 90%;
-    margin: auto;
-    text-align: left;
-  }
-  h3 {
-    margin-bottom: 0;
-  }
-  p {
-    margin-top: 0;
-  }
-  button {
-    margin-bottom: 10px;
-    border: none;
-    padding: 5px 20px;
-    border-radius: 5px;
-    background-color: ${colours.dark};
-    color: ${colours.white};
-    cursor: pointer;
+  display: none;
+  @media screen and (min-width: 1000px) {
+    display: block;
   }
 `;
 
-const NewsThumbnail = ({ article }) => {
-  return (
-    <NewsThumbnailContainer>
-      <img src={article.urlToImage} alt={article.title} />
-      <div>
-        <h3>{article.source.name}</h3>
-        <p>{article.title}</p>
-        <button>Read more.</button>
-      </div>
-    </NewsThumbnailContainer>
-  );
-};
+const MainContent = styled.div`
+  margin: auto;
+`;
 
 function App() {
   const [data, setData] = React.useState([]);
   const url =
-    "https://newsapi.org/v2/everything?" +
-    "q=Apple&" +
-    "from=2022-08-07&" +
-    "sortBy=popularity&" +
+    "https://newsapi.org/v2/top-headlines?" +
+    "sources=bbc-news&" +
     "apiKey=35af35641cd64a93a63d95294c569865";
 
   React.useEffect(() => {
@@ -78,13 +44,18 @@ function App() {
         setData(data.articles);
       })
       .catch((err) => console.log(err));
-    console.log(data.slice(0, 5));
   }, []);
+  console.log(data.slice(0, 9));
 
-  const articles = data.slice(0, 5).map((article, key) => {
-    return <NewsThumbnail key={key} article={article} />;
-  });
-  return <AppContainer className="App">{articles}</AppContainer>;
+  return (
+    <AppContainer className="App">
+      <SideBar></SideBar>
+      <MainContent>
+        <h2>Tech</h2>
+        <Thumnails data={data} />
+      </MainContent>
+    </AppContainer>
+  );
 }
 
 export default App;
