@@ -2,19 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import { colours, fontSizes } from "../utils/utils";
 import Masonry from "react-masonry-css";
+import placeholder from "../assets/myNews.jpg";
 
 /////// Main Function ///////
 const Thumnails = ({ data }) => {
-  const articles = data.slice(0, 9).map((article, key) => {
+  const articles = data.slice(0, 50).map((article, key) => {
     return <NewsThumbnail key={key} article={article} />;
   });
 
+  // console.log(data.slice(0, 50));
+
+  ///// Breakpoints pre sidebar /////
   // const breakpoints = {
   //   default: 4,
   //   1350: 3,
   //   1030: 2,
   //   700: 1,
   // };
+
   const breakpoints = {
     default: 4,
     1650: 3,
@@ -39,12 +44,9 @@ const NewsThumbnail = ({ article }) => {
   return (
     <NewsThumbnailContainer>
       <img
-        src={
-          article.urlToImage
-            ? article.urlToImage
-            : "https://i.imgur.com/rh5O7wN.jpeg"
-        }
+        src={article.urlToImage ? article.urlToImage : placeholder}
         alt={article.title}
+        loading="lazy"
       />
       <div>
         <h3>{article.source.name}</h3>
@@ -57,6 +59,7 @@ const NewsThumbnail = ({ article }) => {
 
 const MasonryContainer = styled.div`
   margin: auto;
+  color: ${colours.dark};
   /* border: 1px solid red; */
   .my-masonry-grid {
     display: -webkit-box; /* Not needed if autoprefixing */
@@ -73,7 +76,7 @@ const MasonryContainer = styled.div`
   /* Style your items */
   .my-masonry-grid_column > div {
     /* change div to reference your elements you put in <Masonry> */
-    margin: 30px 0;
+    margin-bottom: 30px;
   }
 `;
 
