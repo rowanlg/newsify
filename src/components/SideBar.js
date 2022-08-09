@@ -57,7 +57,6 @@ const SideBarContainer = styled.div`
 `;
 
 const SideBar = ({ parameters, setParameters, searchType, setSearchType }) => {
-  // console.log(searchType);
   return (
     <SideBarContainer>
       <div>

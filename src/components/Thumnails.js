@@ -10,16 +10,6 @@ const Thumnails = ({ data }) => {
     return <NewsThumbnail key={key} article={article} />;
   });
 
-  // console.log(data.slice(0, 50));
-
-  ///// Breakpoints pre sidebar /////
-  // const breakpoints = {
-  //   default: 4,
-  //   1350: 3,
-  //   1030: 2,
-  //   700: 1,
-  // };
-
   const breakpoints = {
     default: 4,
     1650: 3,
@@ -49,9 +39,12 @@ const NewsThumbnail = ({ article }) => {
         loading="lazy"
       />
       <div>
-        <h3>{article.source.name}</h3>
+        <h3>{article.source.Name}</h3>
         <p>{article.title}</p>
-        <button>Read more.</button>
+        <p>{article.author}</p>
+        <a href={article.url} target="_blank">
+          Read more.
+        </a>
       </div>
     </NewsThumbnailContainer>
   );
@@ -60,7 +53,6 @@ const NewsThumbnail = ({ article }) => {
 const MasonryContainer = styled.div`
   margin: auto;
   color: ${colours.dark};
-  /* border: 1px solid red; */
   .my-masonry-grid {
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
@@ -82,11 +74,13 @@ const MasonryContainer = styled.div`
 
 const NewsThumbnailContainer = styled.div`
   width: 300px;
+  /* height: 400px; */
   border-radius: 5px;
   background-color: ${colours.white};
   display: flex;
   flex-direction: column;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+  padding-bottom: 20px;
+  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2); */
   img {
     width: 100%;
     border-radius: 5px 5px 0 0;
@@ -109,8 +103,8 @@ const NewsThumbnailContainer = styled.div`
     margin-top: 0;
     font-size: ${fontSizes.small};
   }
-  button {
-    margin-bottom: 15px;
+  a {
+    margin-bottom: 10px;
     border: none;
     padding: 5px 20px;
     border-radius: 5px;
@@ -118,6 +112,7 @@ const NewsThumbnailContainer = styled.div`
     color: ${colours.white};
     cursor: pointer;
     font-size: ${fontSizes.small};
+    text-decoration: none;
   }
 `;
 
